@@ -1,0 +1,30 @@
+{
+    "name": "lara-middleware/response-time",
+    "type": "library",
+    "description": "Laravel 5 Response Time Middleware",
+    "keywords": [],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "C. T. Lin",
+            "homepage": "https://github.com/chentsulin"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "illuminate/contracts": "~5.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.0",
+        "illuminate/http": "~5.1@dev"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaraMiddleware\\": "src/LaraMiddleware/"
+        }
+    },
+    "minimum-stability": "dev"
+}
