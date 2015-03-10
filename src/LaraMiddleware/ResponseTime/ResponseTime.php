@@ -2,8 +2,28 @@
 
 use Closure;
 use Illuminate\Contracts\Routing\Middleware;
+use LaraMiddleware\ResponseTime\Timer;
 
 class ResponseTime implements Middleware {
+
+    /**
+     * The timer instance.
+     *
+     * @var LaraMiddleware\ResponseTimeTimer
+     */
+    protected $timer;
+
+    /**
+     * Create a new filter instance.
+     *
+     * @param  LaraMiddleware\ResponseTime\Timer  $timer
+     * @return void
+     */
+    public function __construct(Timer $timer)
+    {
+        $this->timer = $timer;
+    }
+
 
     /**
     * Add response time to response header.
@@ -14,25 +34,15 @@ class ResponseTime implements Middleware {
     */
     public function handle($request, Closure $next)
     {
-        $timeStart = $this->getMilliseconds();
+        $timeStart = $this->timer->getStartMilliseconds();
 
         $response = $next($request);
 
-        $time = $this->getMilliseconds() - $timeStart;
+        $time = $this->timer->getEndMilliseconds() - $timeStart;
 
         $response->headers->set('X-Response-Time', sprintf('%d', $time), false);
 
         return $response;
-    }
-
-    /**
-    * Get milliseconds for now.
-    *
-    * @return float
-    */
-    public function getMilliseconds()
-    {
-        return round(microtime(true) * 1000);
     }
 
 }

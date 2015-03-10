@@ -6,24 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Closure;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-
-function round()
-{
-    static $enterBefore;
-
-    if ($enterBefore)
-    {
-        return 1.42590138753E+12;
-    }
-    else
-    {
-        $enterBefore = true;
-        return 1.42590138641E+12;
-    }
-}
+use LaraMiddleware\ResponseTime\Timer;
 
 class ResponseTimeSpec extends ObjectBehavior
 {
+
+    static protected $timer;
+
+    function let(Timer $timer)
+    {
+        static::$timer = $timer;
+
+        $this->beConstructedWith($timer);
+    }
 
     function it_is_initializable()
     {
@@ -32,16 +27,20 @@ class ResponseTimeSpec extends ObjectBehavior
 
     function it_should_set_response_time_to_response_header(Request $req,
                                                             Response $res,
-                                                            Closure $next,
                                                             ResponseHeaderBag $bag)
     {
-        $next->shouldBeCalled()->willReturn($res);
-
         $res->headers = $bag;
 
-        $time = 112;
+        static::$timer->getStartMilliseconds()->willReturn(1.42600922494E+12);
+        static::$timer->getEndMilliseconds()->willReturn(1.42600922626E+12);
 
-        $res->headers->set('X-Response-Time', sprintf('%d', $time), false)->shouldBeCalled();
+        $time = 1320;
+
+        $bag->set('X-Response-Time', sprintf('%d', $time), false)->shouldBeCalled();
+
+        $next = function($req) use ($res) {
+            return $res->getWrappedObject();
+        };
 
         $this->handle($req, $next)->shouldReturn($res);
     }
