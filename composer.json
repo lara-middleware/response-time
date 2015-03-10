@@ -2,7 +2,12 @@
     "name": "lara-middleware/response-time",
     "type": "library",
     "description": "Laravel 5 Response Time Middleware",
-    "keywords": [],
+    "keywords": [
+    	"Laravel",
+    	"middleware",
+    	"response",
+    	"duration"
+    ],
     "license": "MIT",
     "authors": [
         {
