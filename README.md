@@ -7,11 +7,37 @@
 ## Install
 
 ```sh
-$ composer require lara-middleware/response-id
+$ composer require lara-middleware/response-time
 ```
+
+or add
+
+`"lara-middleware/response-time": "dev-master"`
+
+to `package.json` > `"require"`
 
 ## Usage
 
+#### For all routes
+
+add `'LaraMiddleware\ResponseTime\ResponseTime'` to
+
+`app/Http/Kernel.php`'s `$middleware`
+
+#### For specific routes
+
+add `'response-time' => 'LaraMiddleware\ResponseTime\ResponseTime',` to
+
+`app/Http/Kernel.php`'s `$routeMiddleware`
+
+Then,
+
+```php
+Route::get('some-specific', ['middleware' => 'response-time', function()
+{
+    //
+}]);
+```
 
 ## License
 MIT © [C. T. Lin](https://github.com/chentsulin)
