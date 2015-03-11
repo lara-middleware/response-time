@@ -20,17 +20,29 @@ to `package.json` > `"require"`
 
 #### For all routes
 
-add `'LaraMiddleware\ResponseTime\ResponseTime'` to
+Add `'LaraMiddleware\ResponseTime\ResponseTime'` as Kernel's first middleware:
 
-`app/Http/Kernel.php`'s `$middleware`
+```php
+// app/Http/Kernel.php
+protected $middleware = [
+	'LaraMiddleware\ResponseTime\ResponseTime',
+	....
+]
+```
 
 #### For specific routes
 
-add `'response-time' => 'LaraMiddleware\ResponseTime\ResponseTime',` to
+Add `'response-time' => 'LaraMiddleware\ResponseTime\ResponseTime',` to route middleware
 
-`app/Http/Kernel.php`'s `$routeMiddleware`
+```php
+// app/Http/Kernel.php
+protected $routeMiddleware = [
+	'response-time' => 'LaraMiddleware\ResponseTime\ResponseTime',
+	....
+]
+```
 
-Then,
+Then, use with routes:
 
 ```php
 Route::get('some-specific', ['middleware' => 'response-time', function()
