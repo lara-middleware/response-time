@@ -32,7 +32,7 @@ protected $middleware = [
 
 #### For specific routes
 
-Add `'response-time' => 'LaraMiddleware\ResponseTime\ResponseTime',` to route middleware
+Add `'response-time' => 'LaraMiddleware\ResponseTime\ResponseTime',` to route middleware:
 
 ```php
 // app/Http/Kernel.php
