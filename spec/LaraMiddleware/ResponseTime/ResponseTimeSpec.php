@@ -34,9 +34,7 @@ class ResponseTimeSpec extends ObjectBehavior
         static::$timer->getStartMilliseconds()->willReturn(1.42600922494E+12);
         static::$timer->getEndMilliseconds()->willReturn(1.42600922626E+12);
 
-        $time = 1320;
-
-        $bag->set('X-Response-Time', sprintf('%d', $time), false)->shouldBeCalled();
+        $bag->set('X-Response-Time', '1320ms', false)->shouldBeCalled();
 
         $next = function($req) use ($res) {
             return $res->getWrappedObject();

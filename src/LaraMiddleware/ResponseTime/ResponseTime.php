@@ -40,7 +40,7 @@ class ResponseTime implements Middleware {
 
         $time = $this->timer->getEndMilliseconds() - $timeStart;
 
-        $response->headers->set('X-Response-Time', sprintf('%d', $time), false);
+        $response->headers->set('X-Response-Time', sprintf('%dms', $time), false);
 
         return $response;
     }
