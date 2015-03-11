@@ -2,7 +2,7 @@
 
 use Closure;
 use Illuminate\Contracts\Routing\Middleware;
-use LaraMiddleware\ResponseTime\Timer;
+
 
 class ResponseTime implements Middleware {
 
